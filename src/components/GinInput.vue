@@ -19,10 +19,10 @@ export default {
    props: {
      label: {
        type: String,
-       default: 'placeholder',
+       default: '',
      },
      value: {
-       type: String,
+       type: [String, Number],
        required: true,
      },
      error: {

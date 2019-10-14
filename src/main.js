@@ -3,6 +3,7 @@ import GinInput from './components/GinInput.vue';
 import GinButton from './components/GinButton.vue';
 import GinCheckbox from './components/GinCheckbox.vue';
 import GinRadio from './components/GinRadio.vue';
+import GinTree from './components/GinTree.vue';
 import ginFs from '@aubrgin/gin-fs';
 import fs from 'fs';
 import Vue from 'vue';
@@ -28,4 +29,5 @@ export {
   GinButton,
   GinCheckbox,
   GinRadio,
+  GinTree,
 };

@@ -16,6 +16,10 @@
     <div class="gin-component-container">
       <GinRadio v-model="checked" />
     </div>
+    <div class="gin-component-container">
+      <GinTree :edit="true" v-model="tree" />
+    </div>
+    {{ tree }}
   </div>
 </template>
 
@@ -24,6 +28,7 @@ import GinInput from './GinInput.vue';
 import GinButton from './GinButton.vue';
 import GinCheckbox from './GinCheckbox.vue';
 import GinRadio from './GinRadio.vue';
+import GinTree from './GinTree.vue';
 
 export default {
   name: 'App',
@@ -32,6 +37,7 @@ export default {
      GinButton,
      GinCheckbox,
      GinRadio,
+     GinTree,
    },
    computed: {
      inputInvalid() {
@@ -46,6 +52,7 @@ export default {
        inputValue: '',
        buttonCount: 0,
        checked: false,
+       tree: {},
      };
    },
 };
