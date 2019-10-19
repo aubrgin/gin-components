@@ -42,7 +42,7 @@ export default {
    width: 400px;
    display: inline-block;
    position: relative;
-   margin-top: 32px;
+   transition: all 0.1s linear;
 
    .gin-input-error-text {
      color: red;
@@ -90,6 +90,8 @@ export default {
    }
 
    &.error, &.warning {
+     margin-top: 32px;
+
      .gin-input {
        &:active, &:focus, &:hover, &.filled {
          ~ .gin-input-border-bottom {

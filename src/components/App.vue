@@ -17,7 +17,10 @@
       <GinRadio v-model="checked" />
     </div>
     <div class="gin-component-container">
-      <GinTree :edit="true" v-model="tree" />
+      <GinTree :edit="true" v-model="tree" label="tree" />
+    </div>
+    <div class="gin-component-container">
+      <GinTree v-model="tree" label="tree" />
     </div>
     {{ tree }}
   </div>

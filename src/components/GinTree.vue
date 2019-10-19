@@ -1,12 +1,13 @@
 <template>
   <div class="gin-tree-container">
+    <gin-label v-if="label" :label="label" />
     <template v-if="Array.isArray(sortedKeys)">
-      <div v-for="key in sortedKeys">
+      <div class="gin-tree-item" v-for="key in sortedKeys">
         <template v-if="edit">
           <gin-input :key="forKeys[key]" :value="key" @input="changeKey(key, $event)" />
         </template>
         <template v-else>
-          {{ key }}
+          <gin-label :label="key" />
         </template>
         <div class="gin-sub-tree">
           <gin-tree
@@ -17,7 +18,7 @@
           />
         </div>
       </div>
-      <div class="gin-tree-input-button">
+      <div class="gin-tree-input-button gin-tree-item" v-if="edit">
         <gin-input v-model="newKey" :error="newKey in value ? 'Key already exists' : ''" />
         <gin-button @click="addKey" >
           +
@@ -34,7 +35,7 @@
         </div>
       </template>
       <template v-else>
-        {{ sortedKeys }}
+        <gin-label :label="sortedKeys" />
       </template>
     </template>
   </div>
@@ -43,12 +44,14 @@
 <script>
  import GinInput from './GinInput.vue';
  import GinButton from './GinButton.vue';
+ import GinLabel from './GinLabel.vue';
 
  export default {
    name: 'GinTree',
    components: {
      GinInput,
      GinButton,
+     GinLabel,
    },
    computed: {
      sortedKeys() {
@@ -66,6 +69,10 @@
      value: {
        type: [Number, String, Object, Boolean],
        required: true,
+     },
+     label: {
+       type: String,
+       default: '',
      },
    },
    data() {
@@ -108,13 +115,20 @@
  .gin-tree-container {
    width: 100%;
 
-   .gin-tree-new-key {
-   }
-
    .gin-input-container {
      width: 100%;
    }
 
+   .gin-tree-item {
+     &:not(:first-child) {
+       margin-top: 16px;
+     }
+
+     .gin-label {
+       display: block;
+       border-bottom-color: var(--color-active);
+     }
+   }
 
    .gin-sub-tree {
      width: 100%;
@@ -135,7 +149,6 @@
 
      .gin-input-container {
        flex-grow: 1;
-
        .gin-input {
          width: 100%;
        }
