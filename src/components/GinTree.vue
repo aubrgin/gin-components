@@ -1,7 +1,20 @@
 <template>
   <div class="gin-tree-container">
     <gin-label v-if="label" :label="label" />
-    <template v-if="Array.isArray(sortedKeys)">
+    <template v-if="valueType === Array">
+      <div class="gin-sub-tree-array">
+        <div class="gin-tree-item" v-for="(item, index) in value">
+          <gin-tree :value="item" :edit="edit" @input="onInput(index, $event)" />
+        </div>
+        <div class="gin-tree-input-button gin-tree-item" v-if="edit">
+          <gin-input v-model="newKey" />
+          <gin-button @click="addItem" >
+            +
+          </gin-button>
+        </div>
+      </div>
+    </template>
+    <template v-if="valueType === Object">
       <div class="gin-tree-item" v-for="key in sortedKeys">
         <template v-if="edit">
           <gin-input :key="forKeys[key]" :value="key" @input="changeKey(key, $event)" />
@@ -25,13 +38,16 @@
         </gin-button>
       </div>
     </template>
-    <template v-else>
+    <template v-if="valueType === undefined">
       <template v-if="edit">
         <div class="gin-tree-input-button">
-        <gin-input :value="sortedKeys" @input="$emit('input', $event)" />
-        <gin-button @click="toObject" >
-          ToObject
-        </gin-button>
+          <gin-input :value="sortedKeys" @input="$emit('input', $event)" />
+          <gin-button @click="toObject" >
+            Object
+          </gin-button>
+          <gin-button @click="toArray" >
+            Array
+          </gin-button>
         </div>
       </template>
       <template v-else>
@@ -59,6 +75,15 @@
          return Object.keys(this.value).sort((lhs, rhs) => this.forKeys[lhs] > this.forKeys[rhs] ? 1 : -1);
        }
        return this.value;
+     },
+     valueType() {
+       if (Array.isArray(this.value)) {
+         return Array;
+       } else if (this.value instanceof Object) {
+         return Object
+       } else {
+         return undefined;
+       }
      }
    },
    props: {
@@ -67,7 +92,7 @@
        default: false,
      },
      value: {
-       type: [Number, String, Object, Boolean],
+       type: [Number, String, Object, Boolean, Array],
        required: true,
      },
      label: {
@@ -104,9 +129,16 @@
        this.$set(this.value, this.newKey, '');
        this.newKey = '';
      },
+     addItem() {
+       this.onInput(this.value.length, this.newKey);
+       this.newKey = '';
+     },
+     toArray() {
+       this.$emit('input', [this.value])
+     },
      toObject() {
-       this.$emit('input', { [this.value]: '' })
-     }
+       this.$emit('input', { [this.value]: '' });
+     },
    }
  };
 </script>
@@ -128,6 +160,12 @@
        display: block;
        border-bottom-color: var(--color-active);
      }
+   }
+
+   .gin-sub-tree-array .gin-sub-tree-array {
+     margin: 8px;
+     border: 3px solid var(--color-active);
+     padding: 8px
    }
 
    .gin-sub-tree {

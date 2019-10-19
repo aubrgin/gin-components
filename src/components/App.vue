@@ -59,7 +59,7 @@ export default {
        inputValue: '',
        buttonCount: 0,
        checked: false,
-       tree: {},
+       tree: {a: ['a', 'b', 'c']},
        selectOptions: ['yes', 'no', 'maybe'],
        selectValue: ''
      };

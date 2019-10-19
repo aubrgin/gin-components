@@ -1,6 +1,6 @@
 {
   "name": "@aubrgin/gin-components",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "dist/@aubrgin/gin-components.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
