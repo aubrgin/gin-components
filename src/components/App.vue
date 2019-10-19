@@ -22,7 +22,9 @@
     <div class="gin-component-container">
       <GinTree v-model="tree" label="tree" />
     </div>
-    {{ tree }}
+    <div class="gin-component-container">
+      <GinSelect v-model="selectValue" :options="selectOptions" label="select" />
+    </div>
   </div>
 </template>
 
@@ -32,6 +34,7 @@ import GinButton from './GinButton.vue';
 import GinCheckbox from './GinCheckbox.vue';
 import GinRadio from './GinRadio.vue';
 import GinTree from './GinTree.vue';
+import GinSelect from './GinSelect.vue';
 
 export default {
   name: 'App',
@@ -41,6 +44,7 @@ export default {
      GinCheckbox,
      GinRadio,
      GinTree,
+     GinSelect,
    },
    computed: {
      inputInvalid() {
@@ -56,6 +60,8 @@ export default {
        buttonCount: 0,
        checked: false,
        tree: {},
+       selectOptions: ['yes', 'no', 'maybe'],
+       selectValue: ''
      };
    },
 };
